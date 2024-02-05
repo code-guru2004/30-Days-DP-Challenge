@@ -1,0 +1,31 @@
+class Solution {
+public:
+int solveTab(vector<int>arr){
+  vector<int>dp(arr.size()+2,0);
+  for(int i=arr.size()-1;i>=0;i--){
+    int include = arr[i] + dp[i+2];
+    int exclude = 0 + dp[i+1];
+    dp[i] = max(include,exclude);
+  }
+  return dp[0];
+}
+    int rob(vector<int>& nums) {
+        vector<int>arr1,arr2;
+        for(int i=0;i<nums.size();i++){
+          if(i==0){
+            arr1.push_back(nums[i]);
+          }
+          else if(i==nums.size()-1){
+            arr2.push_back(nums[nums.size()-1]);
+          }
+          else{
+            arr1.push_back(nums[i]);
+            arr2.push_back(nums[i]);
+          }
+        }
+
+        int first = solveTab(arr1); // last one not in consideration
+        int second = solveTab(arr2); // first one not in consideration
+        return max(first,second);
+    }
+};
